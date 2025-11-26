@@ -71,12 +71,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fitness_backend.wsgi.application'
 
-# Database Configuration - USING SQLITE FOR NOW
+# Database Configuration
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        ssl_require=not DEBUG
+    )
 }
 
 # REST Framework Configuration
@@ -103,9 +104,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:5173",  # Vite default port
     "http://127.0.0.1:5173",
-    # "https://your-frontend-app.vercel.app",
     "https://fitness-ochre-rho.vercel.app",
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://fitnes-xpci.onrender.com",   # backend
+    "https://fitness-ochre-rho.vercel.app",  # your frontend
+]
+
 
 # OR allow all origins for development (easier)
 CORS_ALLOW_ALL_ORIGINS = False  # Add this line for development
