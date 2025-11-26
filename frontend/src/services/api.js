@@ -1,9 +1,11 @@
 import axios from 'axios'
 
-// Use absolute URL for development
-const API_BASE_URL = 'http://localhost:8000/api'
+const DEFAULT_DEV_API = 'http://127.0.0.1:8000/api'
+const DEFAULT_PROD_API = 'https://fitnes-xpci.onrender.com/api'
 
-
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV ? DEFAULT_DEV_API : DEFAULT_PROD_API)
 // Create axios instance
 const api = axios.create({
   baseURL: API_BASE_URL,
